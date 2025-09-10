@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChainYodha.Ai - Portfolio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #a855f7;
+            --accent: #c084fc;
+            --dark: #0a0a0a;
+            --darker: #000000;
+            --light: #ffffff;
+            --gray: #6b7280;
+            --purple-glow: rgba(139, 92, 246, 0.5);
+            --white-glow: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #1a0933 50%, #000000 100%);
+            color: var(--light);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background particles */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(168, 85, 247, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(192, 132, 252, 0.1) 0%, transparent 50%);
+            animation: backgroundFloat 20s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes backgroundFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(-20px, -20px) scale(1.1); }
+            50% { transform: translate(20px, -10px) scale(0.9); }
+            75% { transform: translate(-10px, 20px) scale(1.05); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .logo-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+
+
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #8b5cf6 50%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            position: relative;
+            text-shadow: 0 0 30px var(--purple-glow);
+            animation: titleGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { filter: drop-shadow(0 0 10px var(--purple-glow)); }
+            to { filter: drop-shadow(0 0 20px var(--purple-glow)); }
+        }
+
+        .tagline {
+            color: var(--gray);
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            font-weight: 400;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .main-card {
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                0 0 0 1px rgba(139, 92, 246, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .tabs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .tab-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            border: none;
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--light);
+            border-radius: 16px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            overflow: hidden;
+        }
+
+        .tab-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.3s ease;
+            z-index: -1;
+        }
+
+        .tab-btn:hover::before,
+        .tab-btn.active::before {
+            width: 100%;
+        }
+
+        .tab-btn:hover,
+        .tab-btn.active {
+            color: white;
+            transform: translateY(-4px);
+            box-shadow: 
+                0 10px 30px rgba(139, 92, 246, 0.4),
+                0 0 20px rgba(139, 92, 246, 0.2);
+            border-color: var(--primary);
+        }
+
+        .tab-btn i {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .tab-btn:hover i,
+        .tab-btn.active i {
+            transform: scale(1.1);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 2rem 0;
+            animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-card {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+
+
+        .content-card h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--light), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .content-card p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            border-radius: 16px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin: 0.5rem;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-gh {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            color: white;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-gh:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-yt {
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            color: white;
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.3);
+        }
+
+        .btn-yt:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 0, 0, 0.4);
+        }
+
+        .btn-ppt {
+            background: linear-gradient(135deg, #d24726, #b33d21);
+            color: white;
+            box-shadow: 0 8px 25px rgba(210, 71, 38, 0.3);
+        }
+
+        .btn-ppt:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(210, 71, 38, 0.4);
+        }
+
+        .floating-elements {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-element {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+            opacity: 0.6;
+        }
+
+        .floating-element:nth-child(2n) {
+            background: var(--secondary);
+            animation-duration: 20s;
+        }
+
+        .floating-element:nth-child(3n) {
+            background: var(--accent);
+            animation-duration: 25s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+                margin: 1rem;
+            }
+
+            .main-card {
+                padding: 2rem;
+            }
+
+            .tabs {
+                grid-template-columns: 1fr;
+            }
+
+            .content-card {
+                padding: 2rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .btn {
+                padding: 0.875rem 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                margin: 0.5rem;
+            }
+
+            .main-card {
+                padding: 1.5rem;
+                border-radius: 16px;
+            }
+
+            .content-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="floating-elements">
+        <!-- Floating particles will be generated by JavaScript -->
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <h1>ChainYodha.Ai</h1>
+            </div>
+            <p class="tagline">AI-Powered Trust Infrastructure for Web3</p>
+        </header>
+
+        <div class="main-card">
+            <div class="tabs">
+                <button class="tab-btn active" onclick="openTab(event, 'project')">
+                    <i class="fas fa-rocket"></i>
+                    <span>Project</span>
+                </button>
+                <button class="tab-btn" onclick="openTab(event, 'github')">
+                    <i class="fab fa-github"></i>
+                    <span>GitHub</span>
+                </button>
+                <button class="tab-btn" onclick="openTab(event, 'video')">
+                    <i class="fab fa-youtube"></i>
+                    <span>Video Demo</span>
+                </button>
+                <button class="tab-btn" onclick="openTab(event, 'presentation')">
+                    <i class="fas fa-file-powerpoint"></i>
+                    <span>Presentation</span>
+                </button>
+            </div>
+
+            <div id="project" class="tab-content active">
+                <div class="content-card">
+                    <h2><i class="fas fa-rocket"></i> Project Live Demo</h2>
+                    <p>Experience ChainYodha.Ai in action with our live demo. Explore the cutting-edge AI-powered trust infrastructure designed for the future of Web3.</p>
+                    <a href="https://chainyodha-ai.netlify.app/" class="btn btn-primary" target="_blank">
+                        <i class="fas fa-external-link-alt"></i>
+                        <span>Launch Demo</span>
+                    </a>
+                </div>
+            </div>
+
+            <div id="github" class="tab-content">
+                <div class="content-card">
+                    <h2><i class="fab fa-github"></i> GitHub Repository</h2>
+                    <p>Explore our open-source codebase and contribute to the project. Join our community of developers building the future of decentralized trust.</p>
+                    <a href="https://github.com/Aaditya1273/ChainYodha.Ai" class="btn btn-gh" target="_blank">
+                        <i class="fab fa-github"></i>
+                        <span>View Source</span>
+                    </a>
+                </div>
+            </div>
+
+            <div id="video" class="tab-content">
+                <div class="content-card">
+                    <h2><i class="fab fa-youtube"></i> Video Demo</h2>
+                    <p>Watch our comprehensive project demonstration on YouTube. See how ChainYodha.Ai revolutionizes trust and security in blockchain applications.</p>
+                    <a href="https://youtu.be/dFXu1Ns6zOw?si=ZlWJWslnd14HVuQC" class="btn btn-yt" target="_blank">
+                        <i class="fab fa-youtube"></i>
+                        <span>Watch Video</span>
+                    </a>
+                </div>
+            </div>
+
+            <div id="presentation" class="tab-content">
+                <div class="content-card">
+                    <h2><i class="fas fa-file-powerpoint"></i> Project Presentation</h2>
+                    <p>View our detailed project presentation on Gamma. Discover the technical architecture, use cases, and vision behind ChainYodha.Ai.</p>
+                    <a href="https://gamma.app/docs/ChainYodhaAI-0qdp1nuielfd5yu" class="btn btn-ppt" target="_blank">
+                        <i class="fas fa-file-powerpoint"></i>
+                        <span>View Slides</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab functionality
+        function openTab(evt, tabName) {
+            // Hide all tab contents
+            const tabContents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove('active');
+            }
+
+            // Remove active class from all buttons
+            const tabButtons = document.getElementsByClassName('tab-btn');
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove('active');
+            }
+
+            // Show the selected tab content and mark button as active
+            document.getElementById(tabName).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+
+        // Create floating particles
+        function createFloatingParticles() {
+            const container = document.querySelector('.floating-elements');
+            if (!container) return;
+            
+            const particleCount = 15;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'floating-element';
+                
+                // Random position
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const size = Math.random() * 4 + 2;
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * -20;
+                
+                particle.style.cssText = `
+                    left: ${posX}%;
+                    top: ${posY}%;
+                    width: ${size}px;
+                    height: ${size}px;
+                    animation-delay: ${delay}s;
+                    animation-duration: ${duration}s;
+                `;
+                
+                container.appendChild(particle);
+            }
+        }
+
+        // Initialize particles when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createFloatingParticles();
+            
+            // Set the first tab as active by default
+            const defaultTab = document.getElementById('project');
+            const defaultTabBtn = document.querySelector('.tab-btn');
+            if (defaultTab && defaultTabBtn) {
+                defaultTab.classList.add('active');
+                defaultTabBtn.classList.add('active');
+            }
+        });
+
+        // Add smooth scrolling and enhanced interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add intersection observer for animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe content cards
+            document.querySelectorAll('.content-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+
+        // Add cursor trail effect
+        document.addEventListener('mousemove', function(e) {
+            if (window.innerWidth > 768) { // Only on desktop
+                const trail = document.createElement('div');
+                trail.style.position = 'fixed';
+                trail.style.left = e.clientX + 'px';
+                trail.style.top = e.clientY + 'px';
+                trail.style.width = '4px';
+                trail.style.height = '4px';
+                trail.style.background = 'rgba(139, 92, 246, 0.6)';
+                trail.style.borderRadius = '50%';
+                trail.style.pointerEvents = 'none';
+                trail.style.zIndex = '9999';
+                trail.style.animation = 'fadeOut 1s ease-out forwards';
+                
+                document.body.appendChild(trail);
+                
+                setTimeout(() => {
+                    document.body.removeChild(trail);
+                }, 1000);
+            }
+        });
+
+        // Add fadeOut animation for cursor trail
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeOut {
+                from {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+                to {
+                    opacity: 0;
+                    transform: scale(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
